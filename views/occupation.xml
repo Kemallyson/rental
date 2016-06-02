@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <record id="view_occupation_form" model="ir.ui.view">
+            <field name="name">rental.occupation.form</field>
+            <field name="model">rental.occupation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Occupation Details">
+                            <field name="unit_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="tenant_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="deposit_paid"/>
+                            <field name="move_in_date"/>
+                            <field name="move_out_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_occupation_tree" model="ir.ui.view">
+            <field name="name">rental.occupation.tree</field>
+            <field name="model">rental.occupation</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="unit_id"/>
+                    <field name="tenant_id"/>
+                    <field name="deposit_paid"/>
+                    <field name="move_in_date"/>
+                    <field name="move_out_date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_occupation_action" model="ir.actions.act_window">
+            <field name="name">Occupations</field>
+            <field name="res_model">rental.occupation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="rental_occupation" name="Occupations" sequence="4" parent="rental_root"
+                  action="view_occupation_action"/>
+    </data>
+</openerp>

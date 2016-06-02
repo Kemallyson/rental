@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="rental_root" name="Rental Property"/>
+        <menuitem id="rental_tasks" name="Tasks" parent="rental_root" sequence="7"/>
+    </data>
+</openerp>

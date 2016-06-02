@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <record id="view_billing_wizard_form" model="ir.ui.view">
+            <field name="name">Billing Wizard</field>
+            <field name="model">rental.billing_wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Billing Details">
+                            <field name="month"/>
+                            <field name="year"/>
+                            <field name="date_due"/>
+                        </group>
+                        <separator string="Rental Units"/>
+                        <button type="object" name="add_all_occupations" class="oe_highlight"
+                                string="Add All Occupations"/>
+                        <field name="occupation_ids">
+                            <tree>
+                                <field name="id"/>
+                                <field name="tenant_id"/>
+                                <field name="unit_id"/>
+                            </tree>
+                        </field>
+                        <field name="message"/>
+                        <footer>
+                            <button type="object" name="generate_bills"
+                                    string="Generate Bills" class="oe_highlight"
+                                    attrs="{'invisible': ['|',('month','=',False),'|',('year', '=',False),('occupation_ids','=',False)]}"/>
+                            <button special="cancel" string="Cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_billing_wizard_action" model="ir.actions.act_window">
+            <field name="name">Generate Bills</field>
+            <field name="res_model">rental.billing_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+        <menuitem id="rental_billing_wizard" name="Generate Bills" parent="rental_tasks" sequence="1"
+                  action="view_billing_wizard_action"/>
+    </data>
+</openerp>

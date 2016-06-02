@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <record id="view_unit_form" model="ir.ui.view">
+            <field name="name">rental.unit.form</field>
+            <field name="model">rental.unit</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Unit Details">
+                            <field name="name"/>
+                            <field name="property_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="unit_use" widget="radio"/>
+                            <field name="area"
+                                   attrs="{'invisible': ['|', ('unit_use', '=', 'residential'), ('unit_use', '=', False)]}"/>
+                            <field name="unit_type"
+                                   attrs="{'invisible': ['|', ('unit_use', '=', 'commercial'), ('unit_use', '=', False)]}"/>
+                            <field name="rent_amount"/>
+                        </group>
+
+                        <group string="Utility Details">
+                            <field name="electricity_meter_no"/>
+                            <field name="water_meter_no"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_unit_tree" model="ir.ui.view">
+            <field name="name">rental.unit.tree</field>
+            <field name="model">rental.unit</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="property_id"/>
+                    <field name="unit_use"/>
+                    <field name="rent_amount"/>
+                    <field name="is_occupied"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_unit_filter" model="ir.ui.view">
+            <field name="name">rental.unit.filter</field>
+            <field name="model">rental.unit</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="property_id"/>
+                    <filter string="Vacant" domain="[('is_occupied','=',False)]"/>
+                    <filter string="Occupied" domain="[('is_occupied','=',True)]"/>
+                    <filter string="Residential" domain="[('unit_use','=','residential')]"/>
+                    <filter string="Commercial" domain="[('unit_use','=','commercial')]"/>
+                </search>
+            </field>
+        </record>
+        <record id="view_unit_action" model="ir.actions.act_window">
+            <field name="name">Rental Units</field>
+            <field name="res_model">rental.unit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="rental_unit" name="Rental Units" sequence="2" parent="rental_root" action="view_unit_action"/>
+    </data>
+</openerp>

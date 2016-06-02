@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <record id="view_tenant_form" model="ir.ui.view">
+            <field name="name">rental.tenant.form</field>
+            <field name="model">rental.tenant</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Tenant Details">
+                            <field name="name"/>
+                            <field name="national_id_no"/>
+                            <field name="phone_no"/>
+                            <field name="email_address"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_tenant_tree" model="ir.ui.view">
+            <field name="name">rental.tenant.tree</field>
+            <field name="model">rental.tenant</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="national_id_no"/>
+                    <field name="phone_no"/>
+                    <field name="email_address"/>
+                    <field name="is_current"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_tenant_filter" model="ir.ui.view">
+            <field name="name">rental.tenant.filter</field>
+            <field name="model">rental.tenant</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="national_id_no"/>
+                    <field name="phone_no"/>
+                    <field name="email_address"/>
+                    <filter string="Current Tenants" domain="[('is_current','=',True)]"/>
+                </search>
+            </field>
+        </record>
+        <record id="view_tenant_action" model="ir.actions.act_window">
+            <field name="name">Tenants</field>
+            <field name="res_model">rental.tenant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="rental_tenant" name="Tenants" sequence="3" parent="rental_root" action="view_tenant_action"/>
+    </data>
+</openerp>

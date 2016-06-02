@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report id="report_receipt_action"
+                string="Receipt"
+                model="rental.payment"
+                report_type="qweb-pdf"
+                name="rental.report_receipt_template"
+                />
+    </data>
+
+    <template id="report_receipt_template">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="payment">
+                <div class="page">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Period</td>
+                            <td>
+                                <span t-field="payment.bill_id"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Amount Paid</td>
+                            <td>
+                                <span t-field="payment.amount"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Paid On</td>
+                            <td>
+                                <span t-field="payment.create_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Payed In By</td>
+                            <td>
+                                <span t-field="payment.paid_by"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</openerp>

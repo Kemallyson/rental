@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <record id="view_bill_tree" model="ir.ui.view">
+            <field name="name">rental.bill.tree</field>
+            <field name="model">rental.bill</field>
+            <field name="arch" type="xml">
+                <tree colors="green:balance==0.00">
+                    <field name="id"/>
+                    <field name="occupation_id"/>
+                    <field name="month"/>
+                    <field name="year"/>
+                    <field name="amount"/>
+                    <field name="date_due"/>
+                    <field name="amount_paid"/>
+                    <field name="balance"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_bill_form" model="ir.ui.view">
+            <field name="name">rental.bill.form</field>
+            <field name="model">rental.bill</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Billing Details">
+                            <field name="occupation_id" options="{'no_create':True, 'no_open':True}"/>
+                            <field name="month"/>
+                            <field name="year"/>
+                            <field name="amount"/>
+                            <field name="date_due"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_bill_action" model="ir.actions.act_window">
+            <field name="name">Rental Bills</field>
+            <field name="res_model">rental.bill</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="rental_bill" name="Rental Bills" sequence="5" parent="rental_root" action="view_bill_action"/>
+    </data>
+</openerp>
