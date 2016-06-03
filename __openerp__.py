@@ -3,6 +3,7 @@
     "summary": "Property, Units, Tenants, Occupations, Bills, Billing, Payments",
     "description": "Manages rental property",
     "author": "Oscar Koech",
+	"website":"github.com/koechoscar",
     "application": True,
     "installable": True,
     "category": "Property",
