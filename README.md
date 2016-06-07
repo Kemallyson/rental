@@ -1,1 +1,2 @@
-<strong>Rental Property Management</strong> is an Odoo 9 module for managing rental property.
+# Rental Property Management
+An Odoo 9 module for managing *rental property*.
