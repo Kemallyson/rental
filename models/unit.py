@@ -1,4 +1,4 @@
-from openerp import models, fields, api
+from openerp import models, fields, api, exceptions
 
 
 class Unit(models.Model):
@@ -38,3 +38,8 @@ class Unit(models.Model):
             self.unit_type = None
         if self.unit_use == 'residential':
             self.area = 0
+
+    @api.constrains('rent_amount')
+    def validate_rent_amount(self):
+        if self.rent_amount <= 0:
+            raise exceptions.ValidationError('Rent amount must be greater than zero')
