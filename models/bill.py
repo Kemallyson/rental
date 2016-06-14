@@ -33,7 +33,9 @@ class Bill(models.Model):
     amount_paid = fields.Float(string='Amount Paid', compute='compute_amount_paid', store=False)
     balance = fields.Float(string='Balance', compute='compute_balance', store=False)
     _sql_constraints = {
-        ('unique_occupation_month_year', 'unique(occupation_id, month,year)', 'A similar bill has already been created.')
+        (
+            'unique_occupation_month_year', 'unique(occupation_id, month,year)',
+            'A similar bill has already been created.')
     }
 
     @api.one
@@ -67,6 +69,12 @@ class Bill(models.Model):
         return True
 
     @api.one
+    @api.constrains('amount')
+    def validate_amount(self):
+        if self.amount == 0:
+            raise exceptions.ValidationError('Bill amount cannot be zero')
+
+    @api.one
     @api.onchange('month', 'year')
     def reset_due_date(self):
         if not self.year_is_valid():
@@ -75,7 +83,7 @@ class Bill(models.Model):
         self.date_due = date_due
 
     @api.one
-    @api.constrains('amount')
-    def validate_amount(self):
-        if self.amount == 0:
-            raise exceptions.ValidationError('Bill amount cannot be zero')
+    @api.onchange('occupation_id')
+    def onchange_occ_id(self):
+        if self.occupation_id:
+            self.amount = self.occupation_id.unit_id.rent_amount
