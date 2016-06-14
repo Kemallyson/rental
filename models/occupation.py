@@ -1,4 +1,4 @@
-from openerp import models, fields, api
+from openerp import models, fields, api, exceptions
 
 
 class Occupation(models.Model):
@@ -17,3 +17,15 @@ class Occupation(models.Model):
             name = "%s (%s)" % (occ.unit_id.name, occ.tenant_id.name)
             res += [(occ.id, name)]
         return res
+
+    @api.onchange('unit_id')
+    def on_change_unit_id(self):
+        if self.unit_id:
+            self.deposit_paid = self.unit_id.rent_amount
+        else:
+            self.deposit_paid = 0
+
+    @api.constrains('deposit_paid')
+    def validate_deposit_paid(self):
+        if self.deposit_paid < 0:
+            raise exceptions.ValidationError('Deposit paid cannot be a negative value')
