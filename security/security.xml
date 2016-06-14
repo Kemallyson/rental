@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <record id="rental_user" model="res.groups">
-            <field name="name">Rental Property / User</field>
+        <record id="group_rental_admin" model="res.groups">
+            <field name="name">Rental Property / Administrator</field>
         </record>
     </data>
 </openerp>
