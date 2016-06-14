@@ -19,7 +19,7 @@ class Payment(models.Model):
     @api.constrains('amount')
     def validate_amount(self):
         if self.amount <= 0:
-            raise exceptions.ValidationError('Amount paid cannot be 0 or less')
+            raise exceptions.ValidationError('Amount paid must be greater than zero')
         if self.amount > self.bill_id.balance:
             raise exceptions.ValidationError('Amount paid cannot be greater than the outstanding balance')
 
