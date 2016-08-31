@@ -20,7 +20,7 @@ class Payment(models.Model):
     def validate_amount(self):
         if self.amount <= 0:
             raise exceptions.ValidationError('Amount paid must be greater than zero')
-        if self.amount > self.bill_id.balance:
+        if self.bill_id.balance < 0:
             raise exceptions.ValidationError('Amount paid cannot be greater than the outstanding balance')
 
     # Set the payee name to that of the tenant responsible for the selected bill
